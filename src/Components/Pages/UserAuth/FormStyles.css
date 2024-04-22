@@ -1,0 +1,19 @@
+.signup_main_container,
+.login_main_container {
+  background-image: url("/collection/bg_pattern.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.user_input_container {
+  background: rgba(19, 73, 109, 0.75);
+}
+
+.user_guide_container {
+  background: rgba(216, 237, 255, 0.685);
+}
+
+.form_Input {
+  color: aliceblue !important;
+}

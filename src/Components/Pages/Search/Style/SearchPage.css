@@ -1,0 +1,14 @@
+.search_page_main_container {
+  color: rgb(86, 87, 87);
+}
+
+.category_btn {
+  border: 2px solid grey;
+  transition: 0.35s;
+}
+
+.category_btn:hover {
+  font-weight: 500;
+  color: #0d6efd;
+  border-color: #0d6efd;
+}

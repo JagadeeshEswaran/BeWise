@@ -1,0 +1,10 @@
+.sidebar_icons {
+  color: rgb(131, 132, 133);
+  transition: 0.3s ease-in-out all;
+  cursor: pointer;
+}
+
+.sidebar_icons:hover {
+  color: #fa8c45;
+  transform: scale(1.05);
+}

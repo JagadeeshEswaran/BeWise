@@ -1,0 +1,19 @@
+.welcom_main_Container {
+  color: rgb(86, 87, 87);
+}
+
+.featured_cards_container {
+  height: 85%;
+
+  width: auto;
+  min-width: 87svw;
+}
+
+.featured_cards {
+  height: 20rem;
+  transition: 0.5s;
+}
+
+.featured_cards:hover {
+  background: #000;
+}
