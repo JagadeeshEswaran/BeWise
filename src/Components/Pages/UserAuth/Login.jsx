@@ -68,6 +68,13 @@ const Login = () => {
           style={{ height: "60svh", width: "27vw" }}
         >
           <h6 className="ms-5 fs-6 fw-semibold text-light text-center mt-5">
+            <img
+              src="/BeWise_icon_no_bg.png"
+              alt="BeWise Icon"
+              height={80}
+              className="position-absolute"
+              style={{ top: "10px", left: "90px", rotate: "-20deg" }}
+            />
             <span className="fs-1 me-2 fw-bold ">BeWise</span> by RHFL
           </h6>
 

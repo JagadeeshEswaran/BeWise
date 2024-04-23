@@ -70,6 +70,13 @@ const Signup = () => {
           style={{ height: "80svh", width: "30svw" }}
         >
           <h6 className="ms-5 fs-6 fw-semibold text-light text-center mt-5">
+            <img
+              src="/BeWise_icon_no_bg.png"
+              alt="BeWise Icon"
+              height={80}
+              className="position-absolute"
+              style={{ top: "10px", left: "110px", rotate: "-20deg" }}
+            />
             <span className="fs-1 me-2 fw-bold ">BeWise</span> by RHFL
           </h6>
 
