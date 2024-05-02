@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BeWise_Backend from "../../../Axios/GlobalInstance";
 
-const Login = () => {
+const AdminLogin = () => {
   const [userData, setUserData] = useState({
     username: "",
     password: "",
@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await BeWise_Backend.post("/user/signin", userData);
+      const response = await BeWise_Backend.post("/admin/login", userData);
 
       console.log(response);
 
@@ -30,6 +30,7 @@ const Login = () => {
         toast.success("User Logged In Successfully !!");
 
         await localStorage.setItem("isLoggedIn", true);
+        await localStorage.setItem("isAdminUser", true);
 
         await localStorage.setItem(
           "userData",
@@ -75,41 +76,48 @@ const Login = () => {
           </h6>
 
           <article className=" d-flex justify-content-evenly align-items-center t">
-            <a href="/admin/login">
-              <p className="text-center text-light mt-4 fw-semibold mb-2 py-2 px-3 ">
-                Admin Login
-              </p>
-            </a>
+            <p className="text-center text-light mt-4 fw-semibold mb-2 py-2 px-3 border border-ligh rounded-4">
+              Admin Login
+            </p>
 
             <a href="/login">
-              <p className="text-center text-light mt-4 fw-semibold mb-2 py-2 px-3 border border-ligh rounded-4">
+              <p className="text-center text-light mt-4 fw-semibold mb-2">
                 User Login
               </p>
             </a>
           </article>
 
-          <form className="form_Input d-flex flex-column justify-content-center align-items-center w-100 h-100 py-3 px-3">
+          <form
+            className="form_Input d-flex flex-column justify-content-center align-items-center w-100 h-100 py-3 px-3"
+            onSubmit={handleSubmit}
+          >
             <FormInputField
               input_title={"Emp ID"}
               input_suggestion={""}
               handleChange={handleChange}
               name="username"
+              textValue={userData.username}
             />
             <FormInputField
               input_title={"Password"}
               input_suggestion={""}
               handleChange={handleChange}
               name="password"
+              textValue={userData.password}
             />
 
-            <article className="mt-5 d-flex justify-content-evenly w-100">
-              <button onClick={handleSubmit} className="btn btn-success px-5">
+            <div className="mt-5 d-flex justify-content-evenly w-100">
+              <button className="btn btn-success px-5" type="submit">
                 Sign In
               </button>
-              <button onClick={handleClear} className="btn btn-danger px-5">
+              <button
+                onClick={handleClear}
+                type="button"
+                className="btn btn-danger px-5"
+              >
                 Clear
               </button>
-            </article>
+            </div>
 
             <article
               className="mt-5 text-center"
@@ -117,8 +125,7 @@ const Login = () => {
             >
               If you want to Signup, Please{" "}
               <a href="/signup">
-                <span className=" text-info" type="button">
-                  {" "}
+                <span className="text-info" type="button">
                   click here
                 </span>
               </a>{" "}
@@ -131,4 +138,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

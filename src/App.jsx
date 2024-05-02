@@ -25,20 +25,33 @@ import SearchMainContainer from "./Components/Pages/Search/SearchMainContainer";
 import AllCoursesMain from "./Components/Pages/AllCourses/AllCoursesMain";
 import BookmarkedCourses from "./Components/Pages/Bookmarked/BookmarkedCourses";
 import UserProfileMain from "./Components/Pages/UserProfile/UserProfileMain";
+import StatusCheck from "./Components/Pages/UserAuth/StatusCheck";
+import AdminLogin from "./Components/Pages/UserAuth/AdminLogin";
+import AdminDashboard from "./Components/AdminComponents/AdminDashboard";
+import AdminSidebar from "./Components/AdminComponents/AdminSidebar";
+import UserManagement from "./Components/AdminComponents/Pages/UserManagement";
+import AdminUserProfile from "./Components/AdminComponents/Pages/AdminUserProfile";
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const isAuthUser = localStorage.getItem("isLoggedIn");
-
-  // console.log(isAuthUser);
+  const isAuthAdmin = localStorage.getItem("isAdminUser");
 
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <section className="row">
-            {isAuthUser && <Sidebar />}
+          {/* User Routes */}
+          <section
+            className="row"
+            style={{ width: "100vw", marginLeft: "0px" }}
+          >
+            {isAuthUser && !isAuthAdmin ? (
+              <Sidebar />
+            ) : isAuthUser && isAuthAdmin ? (
+              <AdminSidebar />
+            ) : null}
 
             <article className="p-0 col-11">
               <Routes>
@@ -49,6 +62,7 @@ const App = () => {
                   }
                 />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/statusCheck" element={<StatusCheck />} />
                 <Route
                   path="/"
                   element={
@@ -105,8 +119,60 @@ const App = () => {
                     )
                   }
                 />
+
+                {/* ===================== Admin Routes =============================== */}
+                <Route
+                  path="/admin/login"
+                  element={
+                    isAuthUser === null ? (
+                      <AdminLogin />
+                    ) : (
+                      <Navigate to="/admin/home" />
+                    )
+                  }
+                />
+                <Route
+                  path="/admin/home"
+                  element={
+                    isAuthUser ? (
+                      <AdminDashboard />
+                    ) : (
+                      <Navigate to="/admin/login" />
+                    )
+                  }
+                />
+                <Route
+                  path="/admin/users"
+                  element={
+                    isAuthUser ? (
+                      <UserManagement />
+                    ) : (
+                      <Navigate to="/admin/login" />
+                    )
+                  }
+                />
+                <Route
+                  path="/admin/profile"
+                  element={
+                    isAuthUser ? (
+                      <AdminUserProfile />
+                    ) : (
+                      <Navigate to="/admin/login" />
+                    )
+                  }
+                />
+
                 <Route path="/logout" element={<Logout />} />
               </Routes>
+            </article>
+
+            <article
+              className=" position-absolute"
+              style={{ bottom: "5px", left: "50%" }}
+            >
+              <p className=" fw-semibold" style={{ fontSize: "12px" }}>
+                IT Dept. @ 2024
+              </p>
             </article>
           </section>
 

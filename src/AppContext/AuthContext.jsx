@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Recon_CKYC_Backend from "../Axios/GlobalInstance";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -18,18 +19,17 @@ export const AuthProvider = ({ children }) => {
   const [branchRemarks, setBranchRemarks] = useState(null);
 
   const fetchCaseWiseRemarks = async (brCode) => {
-    try {
-      const response = await Recon_CKYC_Backend.get(
-        `/recon/branch_cases/${brCode}`
-      );
-
-      if (response.status === 200) {
-        await setBranchRemarks(response.data);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong, Please wait a while.");
-    }
+    // try {
+    //   const response = await Recon_CKYC_Backend.get(
+    //     `/recon/branch_cases/${brCode}`
+    //   );
+    //   if (response.status === 200) {
+    //     await setBranchRemarks(response.data);
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   toast.error("Something went wrong, Please wait a while.");
+    // }
   };
 
   useEffect(() => {

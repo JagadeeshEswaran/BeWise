@@ -17,3 +17,16 @@
 .form_Input {
   color: aliceblue !important;
 }
+
+.back_to_login_btn {
+  background: transparent;
+  color: aliceblue;
+  transition: 0.3s;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.back_to_login_btn:hover {
+  background: rgb(52, 193, 248);
+  color: rgb(19, 65, 102);
+}

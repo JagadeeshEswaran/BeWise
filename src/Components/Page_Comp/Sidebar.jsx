@@ -29,7 +29,7 @@ const Sidebar = () => {
 
   return (
     <section
-      className="p-0 sidebar_container col-1 d-flex justify-content-between flex-column "
+      className="p-0 sidebar_container col-1 d-flex justify-content-between flex-column"
       style={{ width: "6%", height: "100svh", background: "aliceblue" }}
     >
       {/* Repco Logo */}

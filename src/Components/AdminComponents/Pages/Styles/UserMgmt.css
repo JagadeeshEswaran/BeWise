@@ -1,0 +1,14 @@
+.header_container {
+  /* background: #000; */
+  border: 3px solid aliceblue;
+  padding-right: 7rem;
+}
+
+.header_search_container {
+  /* background: #000; */
+  width: 25rem;
+}
+
+.header_serach_input {
+  height: 2.5rem;
+}
