@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Button, Modal } from "antd";
 import { IoHome } from "react-icons/io5";
 import { IoSearchSharp } from "react-icons/io5";
 import { IoPlay } from "react-icons/io5";
@@ -11,14 +11,19 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { IoMdLogOut } from "react-icons/io";
 
 import "./sidebar.css";
+import ConfirmationModal from "../../Utils/ConfirmationModal";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSidebarIconClick = (e, endpoint) => {
+    console.log(endpoint);
+
     if (endpoint === "/login") {
       localStorage.clear();
-      return;
+
+      location.reload();
     }
 
     e.preventDefault();
@@ -27,10 +32,14 @@ const Sidebar = () => {
     window.history.pushState({}, undefined, endpoint);
   };
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <section
       className="p-0 sidebar_container col-1 d-flex justify-content-between flex-column"
-      style={{ width: "6%", height: "100svh", background: "aliceblue" }}
+      style={{ width: "4.5%", height: "100svh", background: "aliceblue" }}
     >
       {/* Repco Logo */}
       <a href="/">
@@ -39,8 +48,8 @@ const Sidebar = () => {
             src="/logo.png"
             alt="Repco Home Finance Logo"
             height={60}
-            width={150}
-            className="ms-3"
+            width={120}
+            className="ms-1"
           />
         </article>
       </a>
@@ -83,7 +92,7 @@ const Sidebar = () => {
           onClick={(e) => handleSidebarIconClick(e, "/profile")}
           title="Profile"
         >
-          <FaUserCircle className="sidebar_icons" />
+          <IoSettingsSharp className="sidebar_icons" />
         </a>
       </article>
 
@@ -95,13 +104,26 @@ const Sidebar = () => {
         <a
           href="/settings"
           onClick={(e) => handleSidebarIconClick(e, "/settings")}
+          className=""
         >
-          <IoSettingsSharp className="sidebar_icons" />
+          <img
+            src="/userProfilePic_2.png"
+            alt=""
+            height={50}
+            className="sidebar_icons mb-1 rounded-circle bg-secondary"
+          />
         </a>
-        <a href="/login" onClick={(e) => handleSidebarIconClick(e, "/login")}>
+
+        <article onClick={showModal}>
           <IoMdLogOut className="sidebar_icons" />
-        </a>
+        </article>
       </article>
+
+      <ConfirmationModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        handleSidebarIconClick={handleSidebarIconClick}
+      />
     </section>
   );
 };

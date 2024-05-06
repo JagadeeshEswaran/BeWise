@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FormInputField from "./FormInputField";
+import bcrypt from "bcryptjs-react";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,10 +22,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!userData.username || !userData.password) {
+      toast.warning("Username or Password should not be Empty !");
+      return;
+    }
+
     try {
       const response = await BeWise_Backend.post("/user/signin", userData);
 
-      console.log(response);
+      console.log(response.data);
 
       if (response.data.success) {
         toast.success("User Logged In Successfully !!");
@@ -39,8 +45,13 @@ const Login = () => {
         location.reload();
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error);
       // alert("Unable to Process the Request right Now..");
+
+      if (error.response.data.error) {
+        return toast.error(error.response.data.error);
+      }
+
       toast.error("Unable to Login Right Now, Please Try again later");
     }
   };
@@ -100,6 +111,7 @@ const Login = () => {
               input_suggestion={""}
               handleChange={handleChange}
               name="password"
+              inputType="password"
             />
 
             <article className="mt-5 d-flex justify-content-evenly w-100">

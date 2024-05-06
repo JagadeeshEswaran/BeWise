@@ -43,9 +43,6 @@ const Signup = () => {
           email: "",
           username: "",
           password: "",
-          role: "",
-          branch: "",
-          region: "",
           status: "Application Submitted",
         });
       }
@@ -93,7 +90,7 @@ const Signup = () => {
                   alt="BeWise Icon"
                   height={80}
                   className="position-absolute"
-                  style={{ top: "10px", left: "110px", rotate: "-20deg" }}
+                  style={{ top: "5px", left: "110px", rotate: "-20deg" }}
                 />
                 <span className="fs-1 me-2 fw-bold ">BeWise</span> by RHFL
               </h6>

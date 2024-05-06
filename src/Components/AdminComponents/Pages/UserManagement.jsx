@@ -7,14 +7,14 @@ import BeWise_Backend from "../../../Axios/GlobalInstance";
 import UsersListTable from "../../../Utils/UsersListTable";
 
 const UserManagement = () => {
+  const [isLoading, setLoading] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState("btnNewUsers");
   const [refreshFlag, setRefreshFlag] = useState(true);
   const [usersList, setUsersList] = useState();
   const [variant, setVaraint] = useState(1);
-  const [learnersList, setLearnersList] = useState([]);
   const userSearchRef = useRef();
 
-  const handleFilterBtnClick = async (e, dialog) => {
+  const handleFilterBtnClick = async (e) => {
     const filterId = e.target.id;
     setSelectedFilter(filterId);
 
@@ -24,6 +24,12 @@ const UserManagement = () => {
     } else if (filterId === "btnRegLearners") {
       await handleFetchUsers("learners");
       setVaraint(2);
+    } else if (filterId === "btnAuthorReq") {
+      await handleFetchUsers("newAuthor");
+      setVaraint(1);
+    } else if (filterId === "btnAuthorList") {
+      await handleFetchUsers("authorsList");
+      setVaraint(2);
     }
   };
 
@@ -32,6 +38,8 @@ const UserManagement = () => {
       const response = await BeWise_Backend.get(`/admin/${usersType}`);
       if (response.data.success) {
         setUsersList(response.data.data);
+
+        setLoading(false);
       }
     } catch (error) {
       console.log("Error : ", error);
@@ -40,10 +48,9 @@ const UserManagement = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     handleFetchUsers("registeredUsers");
-  }, [setRefreshFlag]);
-
-  console.log(usersList);
+  }, [setLoading]);
 
   return (
     <section
@@ -65,6 +72,7 @@ const UserManagement = () => {
           >
             New Users
           </article>
+
           <article
             id="btnRegLearners"
             className={`border btn me-3 px-4 py-2 ${
@@ -75,6 +83,30 @@ const UserManagement = () => {
             }
           >
             Learners
+          </article>
+
+          <article
+            id="btnAuthorReq"
+            className={`border btn me-3 px-4 py-2 ${
+              selectedFilter === "btnAuthorReq" ? "btn-warning" : "btn-light"
+            }`}
+            onClick={(e) =>
+              handleFilterBtnClick(e, "Rendering Registered Learners")
+            }
+          >
+            Author Request
+          </article>
+
+          <article
+            id="btnAuthorList"
+            className={`border btn me-3 px-4 py-2 ${
+              selectedFilter === "btnAuthorList" ? "btn-warning" : "btn-light"
+            }`}
+            onClick={(e) =>
+              handleFilterBtnClick(e, "Rendering Registered Learners")
+            }
+          >
+            Authors List
           </article>
         </article>
 
@@ -102,6 +134,8 @@ const UserManagement = () => {
           setRefreshFlag={setRefreshFlag}
           refreshFlag={refreshFlag}
           variant={variant}
+          isLoading={isLoading}
+          setLoading={setLoading}
         />
       </article>
     </section>

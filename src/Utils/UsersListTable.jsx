@@ -2,11 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Bars } from "react-loader-spinner";
 import BeWise_Backend from "../Axios/GlobalInstance";
 
-const UsersListTable = ({ listData, setRefreshFlag, refreshFlag, variant }) => {
+const UsersListTable = ({
+  listData,
+  setRefreshFlag,
+  refreshFlag,
+  variant,
+  isLoading,
+  setLoading,
+}) => {
   const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
 
   const handleAppApprove = async (isApproved, id) => {
+    setRefreshFlag(!refreshFlag);
+    setLoading(true);
+
     try {
       const response = await BeWise_Backend.put(`/admin/userAuth/${id}`, {
         newStatus: isApproved,
@@ -15,7 +24,7 @@ const UsersListTable = ({ listData, setRefreshFlag, refreshFlag, variant }) => {
 
       if (response.data.success) {
         alert(response.data.message);
-        setRefreshFlag(!refreshFlag);
+        location.reload();
       }
     } catch (error) {
       console.log(error);
@@ -52,7 +61,7 @@ const UsersListTable = ({ listData, setRefreshFlag, refreshFlag, variant }) => {
               </>
             ) : (
               <>
-                <th scope="col">Account Created at</th>
+                <th scope="col">Account Created on</th>
               </>
             )}
           </tr>
@@ -82,7 +91,18 @@ const UsersListTable = ({ listData, setRefreshFlag, refreshFlag, variant }) => {
                   <tbody key={item?.id}>
                     <tr>
                       {/* <td>{idx + 1}</td> SL No */}
-                      <td>{item?.u_id}</td> {/* User ID */}
+                      {/* <td>{"E000" + item?.u_id}</td> User ID */}
+                      <td>
+                        {item?.u_id < 10
+                          ? "E000" + item?.u_id
+                          : item?.u_id < 100
+                          ? "E00" + item?.u_id
+                          : item?.u_id < 1000
+                          ? "E0" + item?.u_id
+                          : item?.u_id < 10000
+                          ? "E" + item?.u_id
+                          : item?.u_id}
+                      </td>
                       <td>{item?.username}</td> {/* Username */}
                       <td>{item?.role ? item?.role : item?.userType}</td>{" "}
                       {/* Role */}
@@ -116,7 +136,9 @@ const UsersListTable = ({ listData, setRefreshFlag, refreshFlag, variant }) => {
                       ) : (
                         <>
                           <td>
-                            {new Date(item?.accountCreationDate).getTime()}
+                            {new Date(
+                              item?.accountCreationDate
+                            ).toLocaleString()}
                           </td>{" "}
                         </>
                       )}

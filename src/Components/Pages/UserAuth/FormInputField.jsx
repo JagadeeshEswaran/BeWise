@@ -131,7 +131,7 @@ const FormInputField = ({
               if (inputType === "password") {
                 e.target.value = e.target.value.slice(0, 10);
               } else {
-                e.target.value = e.target.value.slice(0, 15);
+                e.target.value = e.target.value.slice(0, 50);
               }
             }}
             style={{ borderRadius: "0 5px 5px 0" }}
