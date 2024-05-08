@@ -1,7 +1,10 @@
 import React from "react";
 import HoverDropDown from "../../../Utils/AntUI/HoverDD";
+import { useNavigate } from "react-router-dom";
 
 const UserFollow = ({ userData }) => {
+  const navigate = useNavigate();
+
   const handleBecomeAuthor = () => {
     if (
       userData.userType === "Trainee" ||
@@ -9,6 +12,8 @@ const UserFollow = ({ userData }) => {
       userData.userType === "AM / M"
     ) {
       return alert("Minimum CM / SM Cadre Required");
+    } else {
+      navigate("/author_mentor_req");
     }
   };
 

@@ -33,6 +33,9 @@ import UserManagement from "./Components/AdminComponents/Pages/UserManagement";
 import AdminUserProfile from "./Components/AdminComponents/Pages/AdminUserProfile";
 import { UserConfirmationProvider } from "./AppContext/ConfirmationContext";
 import AuthorRequest from "./Components/Pages/AuthorReq/AuthorRequest";
+import ResultSuccess from "./Utils/AntUI/ResutSuccess";
+import AuthorDashboard from "./Components/Pages/Dashboard/AuthorDashboard";
+import LearnerDashboard from "./Components/Pages/Dashboard/LearnerDashboard";
 
 const queryClient = new QueryClient();
 
@@ -47,16 +50,24 @@ const App = () => {
           <BrowserRouter>
             {/* User Routes */}
             <section
-              className="row"
-              style={{ width: "100vw", marginLeft: "0px" }}
+              className="row d-flex flex-row m-0 p-0"
+              style={{ width: "100vw" }}
             >
-              {isAuthUser && !isAuthAdmin ? (
-                <Sidebar />
-              ) : isAuthUser && isAuthAdmin ? (
-                <AdminSidebar />
-              ) : null}
+              <article
+                className="p-0 m-0 position-fixed"
+                style={{ width: "4.5%" }}
+              >
+                {isAuthUser && !isAuthAdmin ? (
+                  <Sidebar />
+                ) : isAuthUser && isAuthAdmin ? (
+                  <AdminSidebar />
+                ) : null}
+              </article>
 
-              <article className="p-0 col-11">
+              <article
+                className="ps-5"
+                style={{ width: "95%", height: "auto", minHeight: "100svh" }}
+              >
                 <Routes>
                   <Route
                     path="/login"
@@ -71,6 +82,16 @@ const App = () => {
                     element={
                       isAuthUser !== null ? (
                         <Welcome />
+                      ) : (
+                        <Navigate to="/login" />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      isAuthUser !== null ? (
+                        <LearnerDashboard />
                       ) : (
                         <Navigate to="/login" />
                       )
@@ -136,6 +157,26 @@ const App = () => {
                       )
                     }
                   />
+                  <Route
+                    path="/author_mentor_req/success"
+                    element={
+                      isAuthUser !== null ? (
+                        <ResultSuccess />
+                      ) : (
+                        <Navigate to="/login" />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/author/dashboard"
+                    element={
+                      isAuthUser !== null ? (
+                        <AuthorDashboard />
+                      ) : (
+                        <Navigate to="/login" />
+                      )
+                    }
+                  />
 
                   {/* ===================== Admin Routes =============================== */}
                   <Route
@@ -182,15 +223,6 @@ const App = () => {
                   <Route path="/logout" element={<Logout />} />
                 </Routes>
               </article>
-
-              {/* <article
-              className=" position-absolute"
-              style={{ bottom: "5px", left: "50%" }}
-            >
-              <p className=" fw-semibold" style={{ fontSize: "12px" }}>
-                IT Dept. @ 2024
-              </p>
-            </article> */}
             </section>
 
             <ToastContainer

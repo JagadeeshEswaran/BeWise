@@ -9,17 +9,18 @@ const UsersListTable = ({
   variant,
   isLoading,
   setLoading,
+  endPoint,
 }) => {
   const [data, setData] = useState([]);
 
-  const handleAppApprove = async (isApproved, id) => {
+  const handleAppApprove = async (isApproved, param) => {
     setRefreshFlag(!refreshFlag);
     setLoading(true);
 
     try {
-      const response = await BeWise_Backend.put(`/admin/userAuth/${id}`, {
+      const response = await BeWise_Backend.put(`/admin/${endPoint}/${param}`, {
         newStatus: isApproved,
-        userData: listData.find((item) => item.u_id === id),
+        userData: listData.find((item) => item.u_id === param),
       });
 
       if (response.data.success) {
@@ -37,7 +38,8 @@ const UsersListTable = ({
     listData ? setLoading(false) : null;
   }, [listData]);
 
-  console.log(listData);
+  // console.log(listData);
+  // alert(endPoint);
 
   return (
     <>
@@ -86,7 +88,7 @@ const UsersListTable = ({
           <>
             {" "}
             {data?.map((item, idx) =>
-              item.status !== "Approved" ? (
+              item.status !== "Approved" || item?.isApproved?.data[0] === 0 ? (
                 <>
                   <tbody key={item?.id}>
                     <tr>
@@ -103,26 +105,40 @@ const UsersListTable = ({
                           ? "E" + item?.u_id
                           : item?.u_id}
                       </td>
-                      <td>{item?.username}</td> {/* Username */}
-                      <td>{item?.role ? item?.role : item?.userType}</td>{" "}
+                      {/* Username */}
+                      <td>{item?.username}</td>
                       {/* Role */}
+                      <td>{item?.role ? item?.role : item?.userType}</td>{" "}
+                      {/* Branch */}
                       <td>
                         {item?.branch ? item?.branch : item?.branch_or_dept}
                       </td>{" "}
-                      {/* Branch */}
-                      <td>{item?.region}</td> {/* Region */}
+                      {/* Region */}
+                      <td>{item?.region}</td>
                       {variant === 1 ? (
                         <>
-                          <td>{item?.status}</td> {/* Status */}
+                          {/* Status */}
+                          <td>
+                            {item?.status || item?.isApproved?.data[0] === 0
+                              ? "Pending"
+                              : "Approved"}
+                          </td>
+
                           <td className=" d-flex justify-content-evenly ">
-                            <button
-                              className="btn btn-info"
-                              onClick={() =>
-                                handleAppApprove("Approved", item?.u_id)
-                              }
-                            >
-                              Approve
-                            </button>
+                            {!item?.status ||
+                            !item?.isApproved?.data[0] === 0 ? (
+                              <button
+                                className="btn btn-info"
+                                onClick={() =>
+                                  handleAppApprove("Approved", item?.u_id)
+                                }
+                              >
+                                Approve
+                              </button>
+                            ) : (
+                              <></>
+                            )}
+
                             <button
                               className="btn btn-danger"
                               onClick={() =>

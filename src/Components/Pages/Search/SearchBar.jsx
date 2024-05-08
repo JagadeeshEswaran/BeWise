@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchBar = () => {
   return (
-    <section className="my-3 ms-3 py-3 px-4" style={{ height: "8rem" }}>
+    <section className="mb-3 ms-3 py-3 px-4" style={{ height: "8rem" }}>
       <article className="">
         <h5 className=" fw-semibold ">Find Your Favourites</h5>
       </article>

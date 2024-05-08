@@ -67,7 +67,7 @@ const Login = () => {
     <>
       <section
         className="login_main_container row d-flex flex-row justify-content-center align-items-center"
-        style={{ width: "100vw", height: "100svh" }}
+        style={{ width: "100vw", height: "100svh", marginLeft: "-3.3%" }}
       >
         {/* User Input Section */}
         <article

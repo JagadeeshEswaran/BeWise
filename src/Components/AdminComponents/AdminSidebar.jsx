@@ -5,6 +5,7 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import { IoMdLogOut } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { RiDashboardFill } from "react-icons/ri";
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
@@ -22,8 +23,8 @@ const AdminSidebar = () => {
 
   return (
     <section
-      className="p-0 sidebar_container col-1 d-flex justify-content-between flex-column   border"
-      style={{ width: "5%", height: "100svh", background: "aliceblue" }}
+      className="p-0 sidebar_container d-flex justify-content-between flex-column"
+      style={{ height: "100svh", background: "aliceblue" }}
     >
       {/* Repco Logo */}
       <a href="/admin/home">
@@ -43,6 +44,10 @@ const AdminSidebar = () => {
         className="sidebar_icons_container d-flex flex-column w-100 justify-content-center align-items-center fs-2 mb-5"
         style={{ color: "", height: "25rem" }}
       >
+        <a href="/dashboard" title="Dashboard">
+          <RiDashboardFill className="sidebar_icons" />
+        </a>
+
         <article
           onClick={(e) => handleSidebarIconClick(e, "/admin/home")}
           title="Home"

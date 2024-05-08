@@ -6,24 +6,29 @@ import Ratings from "./Ratings";
 import RecommendedForYou from "./RecommendedForYou";
 
 import "./Style/SearchPage.css";
+import PageIcon from "../../Page_Comp/PageIcon";
 
 const SearchMainContainer = () => {
   return (
     <section className="search_page_main_container">
-      {/* Seach Component */}
-      <SearchBar />
+      <PageIcon />
 
-      {/* Top Searches */}
-      <TopSearches />
+      <article className="ms-5">
+        {/* Seach Component */}
+        <SearchBar />
 
-      {/* Categories */}
-      <Categories />
+        {/* Top Searches */}
+        <TopSearches />
 
-      {/* Ratings */}
-      <Ratings />
+        {/* Categories */}
+        <Categories />
 
-      {/* Recommended For You */}
-      <RecommendedForYou />
+        {/* Ratings */}
+        <Ratings />
+
+        {/* Recommended For You */}
+        <RecommendedForYou />
+      </article>
     </section>
   );
 };

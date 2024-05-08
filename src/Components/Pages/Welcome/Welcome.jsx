@@ -5,6 +5,7 @@ import Categories from "./Categories";
 import MyCourses from "./MyCourses";
 
 import "./Styles/Welcome.css";
+import PageIcon from "../../Page_Comp/PageIcon";
 
 const Welcome = () => {
   const { userData } = useAppAuth();
@@ -12,6 +13,8 @@ const Welcome = () => {
   return (
     <>
       <section className="welcom_main_Container flex-column d-flex justify-content-center align-items-center">
+        <PageIcon />
+
         {/* Featured Courses */}
         <FeaturesCourses />
 

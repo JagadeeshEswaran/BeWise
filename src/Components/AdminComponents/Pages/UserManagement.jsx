@@ -12,23 +12,31 @@ const UserManagement = () => {
   const [refreshFlag, setRefreshFlag] = useState(true);
   const [usersList, setUsersList] = useState();
   const [variant, setVaraint] = useState(1);
+  const [endPoint, setEndPoint] = useState("registeredUsers");
   const userSearchRef = useRef();
 
   const handleFilterBtnClick = async (e) => {
     const filterId = e.target.id;
+
+    console.log(e.target.id);
+
     setSelectedFilter(filterId);
 
     if (filterId === "btnNewUsers") {
       await handleFetchUsers("registeredUsers");
+      setEndPoint("userAuth");
       setVaraint(1);
     } else if (filterId === "btnRegLearners") {
       await handleFetchUsers("learners");
+      setEndPoint("userAuth");
       setVaraint(2);
     } else if (filterId === "btnAuthorReq") {
-      await handleFetchUsers("newAuthor");
+      await handleFetchUsers("allReqAuthors");
+      setEndPoint("authorizeAuthor");
       setVaraint(1);
     } else if (filterId === "btnAuthorList") {
-      await handleFetchUsers("authorsList");
+      await handleFetchUsers("approvedAuthors");
+      setEndPoint("authorizeAuthor");
       setVaraint(2);
     }
   };
@@ -36,9 +44,10 @@ const UserManagement = () => {
   const handleFetchUsers = async (usersType) => {
     try {
       const response = await BeWise_Backend.get(`/admin/${usersType}`);
+      console.log(response.data.data);
+
       if (response.data.success) {
         setUsersList(response.data.data);
-
         setLoading(false);
       }
     } catch (error) {
@@ -54,7 +63,7 @@ const UserManagement = () => {
 
   return (
     <section
-      className=" d-flex flex-column justify-content-center align-items-center"
+      className=" d-flex flex-column justify-content-center align-items-center ms-4"
       style={{ height: "97svh" }}
     >
       {/* Header Component */}
@@ -136,6 +145,7 @@ const UserManagement = () => {
           variant={variant}
           isLoading={isLoading}
           setLoading={setLoading}
+          endPoint={endPoint}
         />
       </article>
     </section>

@@ -5,7 +5,7 @@ import { IoHome } from "react-icons/io5";
 import { IoSearchSharp } from "react-icons/io5";
 import { IoPlay } from "react-icons/io5";
 import { IoBookmarks } from "react-icons/io5";
-import { FaUserCircle } from "react-icons/fa";
+import { RiDashboardFill } from "react-icons/ri";
 
 import { IoSettingsSharp } from "react-icons/io5";
 import { IoMdLogOut } from "react-icons/io";
@@ -38,8 +38,8 @@ const Sidebar = () => {
 
   return (
     <section
-      className="p-0 sidebar_container col-1 d-flex justify-content-between flex-column"
-      style={{ width: "4.5%", height: "100svh", background: "aliceblue" }}
+      className="p-0 sidebar_container d-flex justify-content-between flex-column border border-light"
+      style={{ height: "100svh", background: "aliceblue" }}
     >
       {/* Repco Logo */}
       <a href="/">
@@ -59,6 +59,9 @@ const Sidebar = () => {
         className="sidebar_icons_container d-flex flex-column w-100 justify-content-evenly align-items-center fs-2 mb-5"
         style={{ color: "", height: "25rem" }}
       >
+        <a href="/dashboard" title="Dashboard">
+          <RiDashboardFill className="sidebar_icons" />
+        </a>
         <a
           href="/"
           onClick={(e) => handleSidebarIconClick(e, "/")}

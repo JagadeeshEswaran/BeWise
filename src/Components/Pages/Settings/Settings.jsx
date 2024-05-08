@@ -10,7 +10,7 @@ const Settings = () => {
   // console.log(userData);
 
   return (
-    <section className="row p-4 h-100 d-flex justify-content-evenly align-items-center">
+    <section className="row p-4 h-100 d-flex justify-content-evenly align-items-center ">
       <article className="col-6 h-100 rounded bg-light-subtle">
         <article className=" h-25 my-2">
           <UserDetails userData={userData} />

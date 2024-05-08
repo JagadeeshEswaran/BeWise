@@ -3,7 +3,7 @@ import React from "react";
 const FeaturesCourses = () => {
   return (
     <section
-      className="rounded mt-4 mb-2 pt-2 px-4"
+      className="rounded mt-2 mb-2 pt-2 px-4"
       style={{ height: "30svh", width: "98%" }}
     >
       <article className="">
