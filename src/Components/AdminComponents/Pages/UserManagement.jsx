@@ -1,40 +1,38 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MdPersonSearch } from "react-icons/md";
-import { toast } from "react-toastify";
 
 import "./Styles/UserMgmt.css";
 import BeWise_Backend from "../../../Axios/GlobalInstance";
 import UsersListTable from "../../../Utils/UsersListTable";
+import { user_state_list } from "../../../Constants/AdminPages/UserManagement/UserStateFilter";
 
 const UserManagement = () => {
   const [isLoading, setLoading] = useState(true);
-  const [selectedFilter, setSelectedFilter] = useState("btnNewUsers");
+  const [selectedFilter, setSelectedFilter] = useState(1);
   const [refreshFlag, setRefreshFlag] = useState(true);
   const [usersList, setUsersList] = useState();
   const [variant, setVaraint] = useState(1);
   const [endPoint, setEndPoint] = useState("registeredUsers");
   const userSearchRef = useRef();
 
-  const handleFilterBtnClick = async (e) => {
-    const filterId = e.target.id;
-
-    console.log(e.target.id);
+  const handleFilterBtnClick = async (item) => {
+    const filterId = item.id;
 
     setSelectedFilter(filterId);
 
-    if (filterId === "btnNewUsers") {
+    if (filterId === 1) {
       await handleFetchUsers("registeredUsers");
       setEndPoint("userAuth");
       setVaraint(1);
-    } else if (filterId === "btnRegLearners") {
+    } else if (filterId === 2) {
       await handleFetchUsers("learners");
       setEndPoint("userAuth");
       setVaraint(2);
-    } else if (filterId === "btnAuthorReq") {
+    } else if (filterId === 3) {
       await handleFetchUsers("allReqAuthors");
       setEndPoint("authorizeAuthor");
       setVaraint(1);
-    } else if (filterId === "btnAuthorList") {
+    } else if (filterId === 4) {
       await handleFetchUsers("approvedAuthors");
       setEndPoint("authorizeAuthor");
       setVaraint(2);
@@ -42,9 +40,10 @@ const UserManagement = () => {
   };
 
   const handleFetchUsers = async (usersType) => {
+    // console.log(`/admin/${usersType}`);
     try {
       const response = await BeWise_Backend.get(`/admin/${usersType}`);
-      console.log(response.data.data);
+      // console.log(response.data.data);
 
       if (response.data.success) {
         setUsersList(response.data.data);
@@ -61,6 +60,8 @@ const UserManagement = () => {
     handleFetchUsers("registeredUsers");
   }, [setLoading]);
 
+  // console.log(selectedFilter);
+
   return (
     <section
       className=" d-flex flex-column justify-content-center align-items-center ms-4"
@@ -72,51 +73,19 @@ const UserManagement = () => {
         style={{ height: "10vh" }}
       >
         <article className="d-flex justify-content-between ps-3">
-          <article
-            id="btnNewUsers"
-            className={`border btn me-3 px-4 py-2 ${
-              selectedFilter === "btnNewUsers" ? "btn-warning" : "btn-light"
-            }`}
-            onClick={(e) => handleFilterBtnClick(e, "Rendering New Users")}
-          >
-            New Users
-          </article>
-
-          <article
-            id="btnRegLearners"
-            className={`border btn me-3 px-4 py-2 ${
-              selectedFilter === "btnRegLearners" ? "btn-warning" : "btn-light"
-            }`}
-            onClick={(e) =>
-              handleFilterBtnClick(e, "Rendering Registered Learners")
-            }
-          >
-            Learners
-          </article>
-
-          <article
-            id="btnAuthorReq"
-            className={`border btn me-3 px-4 py-2 ${
-              selectedFilter === "btnAuthorReq" ? "btn-warning" : "btn-light"
-            }`}
-            onClick={(e) =>
-              handleFilterBtnClick(e, "Rendering Registered Learners")
-            }
-          >
-            Author Request
-          </article>
-
-          <article
-            id="btnAuthorList"
-            className={`border btn me-3 px-4 py-2 ${
-              selectedFilter === "btnAuthorList" ? "btn-warning" : "btn-light"
-            }`}
-            onClick={(e) =>
-              handleFilterBtnClick(e, "Rendering Registered Learners")
-            }
-          >
-            Authors List
-          </article>
+          {user_state_list.map((item) => (
+            <article
+              kay={item.id}
+              id={item.id}
+              type="button"
+              className={`border btn me-3 px-4 py-2 ${
+                selectedFilter === item.id ? "btn-warning" : "btn-light"
+              }`}
+              onClick={() => handleFilterBtnClick(item, item.filterString)}
+            >
+              {item.name}
+            </article>
+          ))}
         </article>
 
         <article className="header_search_container border-danger d-flex justify-content-center align-items-center position-relative">
@@ -146,6 +115,7 @@ const UserManagement = () => {
           isLoading={isLoading}
           setLoading={setLoading}
           endPoint={endPoint}
+          handleFetchUsers={handleFetchUsers}
         />
       </article>
     </section>

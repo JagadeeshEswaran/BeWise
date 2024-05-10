@@ -59,7 +59,7 @@ const Sidebar = () => {
         className="sidebar_icons_container d-flex flex-column w-100 justify-content-evenly align-items-center fs-2 mb-5"
         style={{ color: "", height: "25rem" }}
       >
-        <a href="/dashboard" title="Dashboard">
+        <a href="/dashboard" title="Dashboard" className="mb-2">
           <RiDashboardFill className="sidebar_icons" />
         </a>
         <a

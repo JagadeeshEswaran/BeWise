@@ -44,7 +44,7 @@ const AdminSidebar = () => {
         className="sidebar_icons_container d-flex flex-column w-100 justify-content-center align-items-center fs-2 mb-5"
         style={{ color: "", height: "25rem" }}
       >
-        <a href="/dashboard" title="Dashboard">
+        <a href="/dashboard" title="Dashboard" className="mb-3">
           <RiDashboardFill className="sidebar_icons" />
         </a>
 

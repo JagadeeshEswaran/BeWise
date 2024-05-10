@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Bars } from "react-loader-spinner";
 import BeWise_Backend from "../Axios/GlobalInstance";
+import { notification } from "antd";
 
 const UsersListTable = ({
   listData,
@@ -10,8 +11,12 @@ const UsersListTable = ({
   isLoading,
   setLoading,
   endPoint,
+  handleFetchUsers,
 }) => {
   const [data, setData] = useState([]);
+  const [api, contextHolder] = notification.useNotification();
+
+  console.log(endPoint);
 
   const handleAppApprove = async (isApproved, param) => {
     setRefreshFlag(!refreshFlag);
@@ -24,8 +29,16 @@ const UsersListTable = ({
       });
 
       if (response.data.success) {
-        alert(response.data.message);
-        location.reload();
+        () => {
+          api[success]({
+            message: "Notification Title",
+            description:
+              "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+          });
+        };
+
+        handleFetchUsers("allReqAuthors");
+        setLoading(true);
       }
     } catch (error) {
       console.log(error);
@@ -34,11 +47,11 @@ const UsersListTable = ({
   };
 
   useEffect(() => {
-    setData(listData);
-    listData ? setLoading(false) : null;
+    setData([...listData]);
+    // listData ? setLoading(false) : null;
   }, [listData]);
 
-  // console.log(listData);
+  console.log(variant);
   // alert(endPoint);
 
   return (
@@ -47,10 +60,25 @@ const UsersListTable = ({
         <thead>
           <tr>
             {/* <th scope="col">SL No</th> */}
-            <th scope="col">User ID</th>
+            {variant === 2 && endPoint === "authorizeAuthor" ? (
+              <></>
+            ) : (
+              <th scope="col">User ID</th>
+            )}
             <th scope="col">Username</th>
-            <th scope="col">Role</th>
-            <th scope="col">Branch</th>
+
+            {variant === 2 && endPoint === "authorizeAuthor" ? (
+              <></>
+            ) : (
+              <th scope="col">Role</th>
+            )}
+
+            {variant === 2 && endPoint === "authorizeAuthor" ? (
+              <></>
+            ) : (
+              <th scope="col">Branch</th>
+            )}
+
             <th scope="col">Region</th>
 
             {variant === 1 ? (
@@ -94,27 +122,54 @@ const UsersListTable = ({
                     <tr>
                       {/* <td>{idx + 1}</td> SL No */}
                       {/* <td>{"E000" + item?.u_id}</td> User ID */}
-                      <td>
-                        {item?.u_id < 10
-                          ? "E000" + item?.u_id
-                          : item?.u_id < 100
-                          ? "E00" + item?.u_id
-                          : item?.u_id < 1000
-                          ? "E0" + item?.u_id
-                          : item?.u_id < 10000
-                          ? "E" + item?.u_id
-                          : item?.u_id}
-                      </td>
+                      {variant === 2 && endPoint === "authorizeAuthor" ? (
+                        <></>
+                      ) : (
+                        <td>
+                          {item?.u_id < 10
+                            ? "E000" + item?.u_id
+                            : item?.u_id < 100
+                            ? "E00" + item?.u_id
+                            : item?.u_id < 1000
+                            ? "E0" + item?.u_id
+                            : item?.u_id < 10000
+                            ? "E" + item?.u_id
+                            : item?.u_id}
+                        </td>
+                      )}
                       {/* Username */}
                       <td>{item?.username}</td>
                       {/* Role */}
-                      <td>{item?.role ? item?.role : item?.userType}</td>{" "}
+                      {variant === 2 && endPoint === "authorizeAuthor" ? (
+                        <>
+                          <td>
+                            {/* {item?.branch_or_dept
+                              ? JSON.parse(item?.branch_or_dept)?.role
+                              : ""} */}
+                          </td>
+                        </>
+                      ) : (
+                        <td>{item?.role ? item?.role : item?.userType}</td>
+                      )}
+
                       {/* Branch */}
-                      <td>
-                        {item?.branch ? item?.branch : item?.branch_or_dept}
-                      </td>{" "}
+                      {variant === 2 && endPoint === "authorizeAuthor" ? (
+                        <>
+                          <td>
+                            {/* {item?.branch_or_dept
+                              ? JSON.parse(item.branch_or_dept).branch_or_dept
+                              : ""} */}
+                          </td>
+                        </>
+                      ) : (
+                        <td>
+                          {item?.role ? item?.role : item?.branch_or_dept}
+                        </td>
+                      )}
+
                       {/* Region */}
                       <td>{item?.region}</td>
+
                       {variant === 1 ? (
                         <>
                           {/* Status */}
@@ -125,8 +180,10 @@ const UsersListTable = ({
                           </td>
 
                           <td className=" d-flex justify-content-evenly ">
-                            {!item?.status ||
-                            !item?.isApproved?.data[0] === 0 ? (
+                            {(endPoint !== "authorizeAuthor" &&
+                              item?.status !== "Approved") ||
+                            (endPoint === "authorizeAuthor" &&
+                              item?.isApproved?.data[0] !== 1) ? (
                               <button
                                 className="btn btn-info"
                                 onClick={() =>
@@ -151,11 +208,21 @@ const UsersListTable = ({
                         </>
                       ) : (
                         <>
-                          <td>
-                            {new Date(
-                              item?.accountCreationDate
-                            ).toLocaleString()}
-                          </td>{" "}
+                          {variant === 2 && endPoint === "authorizeAuthor" ? (
+                            <td>
+                              {/* {item?.branch_or_dept
+                                ? formatDate(
+                                    JSON.parse(item?.branch_or_dept)?.approvedAt
+                                  )
+                                : ""} */}
+                            </td>
+                          ) : (
+                            <td>
+                              {new Date(
+                                item?.accountCreationDate
+                              ).toLocaleString()}
+                            </td>
+                          )}
                         </>
                       )}
                     </tr>

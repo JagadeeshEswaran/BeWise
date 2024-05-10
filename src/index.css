@@ -156,8 +156,7 @@ ul {
   object-fit: cover;
 }
 /* buttons */
-
-.btn {
+/* .btn {
   cursor: pointer;
   color: var(--white);
   background: var(--primary-500);
@@ -185,7 +184,7 @@ ul {
 }
 .btn-block {
   width: 100%;
-}
+} */
 
 /* alerts */
 .alert {

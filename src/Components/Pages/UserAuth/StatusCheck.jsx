@@ -32,7 +32,7 @@ const StatusCheck = () => {
   return (
     <section
       className="signup_main_container row d-flex flex-row justify-content-center align-items-center"
-      style={{ width: "100svw", height: "100svh", marginLeft: "0px" }}
+      style={{ width: "100svw", height: "100svh", marginLeft: "-3rem" }}
     >
       <article
         className="user_input_container card col-3 d-flex justify-content-center align-items-center position-relative"
