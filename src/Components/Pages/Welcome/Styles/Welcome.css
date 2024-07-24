@@ -1,5 +1,13 @@
+a {
+  text-decoration: none !important;
+}
+
 .welcom_main_Container {
-  color: rgb(86, 87, 87);
+  color: rgb(86, 87, 87) !important;
+  min-height: 80vh;
+  height: auto;
+
+  /* border: 2px solid red; */
 }
 
 .featured_cards_container {
@@ -12,8 +20,14 @@
 .featured_cards {
   height: 20rem;
   transition: 0.5s;
+  cursor: pointer;
+  border: 3px solid transparent;
 }
 
 .featured_cards:hover {
-  background: #000;
+  /* background: #000; */
+
+  border: 3px solid rgba(255, 255, 255, 0.486);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  color: rgb(27, 29, 29) !important;
 }

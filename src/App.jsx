@@ -36,12 +36,14 @@ import AuthorRequest from "./Components/Pages/AuthorReq/AuthorRequest";
 import ResultSuccess from "./Utils/AntUI/ResutSuccess";
 import AuthorDashboard from "./Components/Pages/Dashboard/AuthorDashboard";
 import LearnerDashboard from "./Components/Pages/Dashboard/LearnerDashboard";
+import CoursePage from "./Components/Pages/Courses/CoursePage";
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const isAuthUser = localStorage.getItem("isLoggedIn");
   const isAuthAdmin = localStorage.getItem("isAdminUser");
+  const isAuthor = localStorage.getItem("isAuthor") || true;
 
   return (
     <AuthProvider>
@@ -92,6 +94,16 @@ const App = () => {
                     element={
                       isAuthUser !== null ? (
                         <LearnerDashboard />
+                      ) : (
+                        <Navigate to="/login" />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/authors/dashboard"
+                    element={
+                      isAuthUser !== null && isAuthor ? (
+                        <AuthorDashboard />
                       ) : (
                         <Navigate to="/login" />
                       )
@@ -221,6 +233,18 @@ const App = () => {
                   />
 
                   <Route path="/logout" element={<Logout />} />
+
+                  {/* ===================== Courses Routes =============================== */}
+                  <Route
+                    path="/courses/:courseName"
+                    element={
+                      isAuthUser ? (
+                        <CoursePage />
+                      ) : (
+                        <Navigate to="/admin/login" />
+                      )
+                    }
+                  />
                 </Routes>
               </article>
             </section>

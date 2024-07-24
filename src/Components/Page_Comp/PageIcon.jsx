@@ -10,9 +10,9 @@ const PageIcon = () => {
         <img
           src="/BeWise_icon_no_bg.png"
           alt="BeWise Icon"
-          height={45}
+          height={40}
           className="position-absolute"
-          style={{ top: "2px", right: "178px", rotate: "-20deg" }}
+          style={{ top: "8px", right: "235px", rotate: "-20deg" }}
         />
         <span className="fs-3 me-1 fw-bold text-info">BeWise</span> by RHFL
       </h6>

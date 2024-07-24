@@ -70,7 +70,7 @@ const AdminLogin = () => {
               alt="BeWise Icon"
               height={80}
               className="position-absolute"
-              style={{ top: "10px", left: "90px", rotate: "-20deg" }}
+              style={{ top: "10px", left: "110px", rotate: "-20deg" }}
             />
             <span className="fs-1 me-2 fw-bold ">BeWise</span> by RHFL
           </h6>

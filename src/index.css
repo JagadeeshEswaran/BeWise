@@ -73,7 +73,24 @@ body {
   line-height: 1;
   color: var(--textColor);
   overflow-x: hidden;
+  overflow-y: auto !important;
+  /* scrollbar-width: 5px; */
 }
+
+body::-webkit-scrollbar {
+  width: 7px;
+}
+
+body::-webkit-scrollbar-track {
+  background: rgb(184, 184, 184);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #212529;
+  border-radius: 10px;
+  border: 2px solid #212529;
+}
+
 p {
   margin: 0;
 }
@@ -143,7 +160,7 @@ small,
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 ul {
   list-style-type: none;
