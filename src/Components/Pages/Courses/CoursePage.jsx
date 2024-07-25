@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { courses } from "../../../Constants/UserPages/Courses";
 import "./styles.css";
-import ModulesOverview from "./ModulesOverview";
+import ModulesOverview from "./Components/ModulesOverview";
+import HeaderCards from "./Components/HeaderCards";
+import CourseOverview from "./Components/CourseOverview";
+import CourseSection from "./Components/CourseSection";
 
 const CoursePage = () => {
   const { courseName } = useParams();
@@ -11,9 +14,9 @@ const CoursePage = () => {
 
   useEffect(() => {
     if (courses.length > 0) {
-      const initialSection = courses[0].courseContent[0];
+      const initialSection = courses[0].courseContent[1];
       setSelectedSection(initialSection);
-      setSelectedSubSection(initialSection?.subSections[0]);
+      setSelectedSubSection(initialSection?.subSections[4]);
     }
   }, []);
 
@@ -59,27 +62,33 @@ const CoursePage = () => {
         <main className="course-main-content text-light bg-dark me-2 rounded">
           {selectedSection.sectionTitle !== "Overview" && (
             <div className="course-subsections-container bg-light mx-2 my-2 rounded text-dark d-flex mb-4">
-              {selectedSection?.subSections.map((item) => (
-                <button
-                  className={`course-subsection-btn bg-opacity-25 m-2 rounded btn d-flex justify-content-center align-items-center  ${
-                    selectedSubSection.id === item.id
-                      ? "bg-info text-dark border border-3 border-info"
-                      : "bg-dark text-light border border-3 border-dark"
-                  }`}
-                  key={item.id}
-                  onClick={() => handleSubSectionSelection(item)}
-                >
-                  <h6>{item.subSectionTitle}</h6>
-                </button>
-              ))}
+              {selectedSection?.subSections.map((item) =>
+                item.isOverview ? (
+                  <HeaderCards
+                    handleSubSectionSelection={handleSubSectionSelection}
+                    item={item}
+                    selectedSubSection={selectedSubSection}
+                    isOverview={selectedSubSection.isOverview}
+                  />
+                ) : (
+                  <HeaderCards
+                    handleSubSectionSelection={handleSubSectionSelection}
+                    item={item}
+                    selectedSubSection={selectedSubSection}
+                    isOverview={item.isOverview}
+                  />
+                )
+              )}
             </div>
           )}
 
           <div className="course-content d-flex flex-column justify-content-start align-items-center w-100">
-            {selectedSubSection.isOverview ? (
+            {selectedSection.isOverview ? (
               <ModulesOverview />
+            ) : selectedSubSection.isOverview ? (
+              <CourseOverview content={selectedSubSection.content} />
             ) : (
-              <p>{selectedSubSection?.content}</p>
+              <CourseSection content={selectedSubSection.content} />
             )}
           </div>
         </main>

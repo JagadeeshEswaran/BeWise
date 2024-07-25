@@ -74,7 +74,7 @@
 
 .course-content {
   height: 80vh;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 /* For ModulesOverview Component */
@@ -93,4 +93,9 @@
   color: #054d5c;
   border: 2px solid #054d5c;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* For Module Compunents */
+.overviewHeaderCard {
+  /* background-image: ; */
 }
