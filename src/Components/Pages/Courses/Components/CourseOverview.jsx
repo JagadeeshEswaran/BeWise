@@ -55,7 +55,7 @@ const CourseOverview = ({ content }) => {
           />
         </article>
 
-        <img src={content.imgCollections.img_01} alt="" />
+        <img src={content.imgCollections.img_01} alt="" className=" rounded" />
 
         <article
           className="mt-5 w-50 rounded-3"

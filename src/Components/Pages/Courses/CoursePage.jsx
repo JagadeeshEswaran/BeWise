@@ -16,7 +16,7 @@ const CoursePage = () => {
     if (courses.length > 0) {
       const initialSection = courses[0].courseContent[1];
       setSelectedSection(initialSection);
-      setSelectedSubSection(initialSection?.subSections[4]);
+      setSelectedSubSection(initialSection?.subSections[5]);
     }
   }, []);
 
@@ -54,7 +54,7 @@ const CoursePage = () => {
               key={item.id}
               onClick={() => handleSectionSelection(item)}
             >
-              <h6>{item.sectionTitle}</h6>
+              <h6 className="">{item.sectionTitle}</h6>
             </button>
           ))}
         </aside>

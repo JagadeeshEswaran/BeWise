@@ -77,15 +77,18 @@ body {
   /* scrollbar-width: 5px; */
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+pre::-webkit-scrollbar {
   width: 7px;
 }
 
-body::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-track {
   background: rgb(184, 184, 184);
 }
 
-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb {
   background-color: #212529;
   border-radius: 10px;
   border: 2px solid #212529;

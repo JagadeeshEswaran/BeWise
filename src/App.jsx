@@ -249,6 +249,18 @@ const App = () => {
               </article>
             </section>
 
+            <footer
+              className="mt-5 fw-semibold d-flex justify-content-center align-items-center"
+              style={{
+                fontSize: "12px",
+                position: "fixed",
+                bottom: 10,
+                left: "50%",
+              }}
+            >
+              {new Date().getFullYear()} @ RHFL IT Dept.
+            </footer>
+
             <ToastContainer
               position="top-center"
               autoClose={5000}

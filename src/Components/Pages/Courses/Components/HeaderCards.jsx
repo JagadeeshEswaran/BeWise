@@ -14,7 +14,7 @@ const HeaderCards = ({
         className={`course-subsection-btn bg-opacity-25 m-2 rounded btn d-flex justify-content-center align-items-center position-relative ${
           selectedSubSection.id === item.id
             ? "bg-info text-dark border border-3 border-info"
-            : "bg-dark text-light border border-3 border-dark border-opacity-25"
+            : "bg-dark text-dark border border-3 border-dark border-opacity-25"
         } ${isOverview ? "" : " "}`}
         key={item.id}
         onClick={() => handleSubSectionSelection(item)}
